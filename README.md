@@ -3,12 +3,12 @@
 ![GitHub](https://img.shields.io/github/license/souzafcharles/Java-Spring-Thymeleaf-Triathlete-Sponsorship)
 ![GitHub last commit](https://img.shields.io/github/last-commit/souzafcharles/Java-Spring-Thymeleaf-Triathlete-Sponsorship)
 
-# 🏊🚴🏃 Triathlete Sponsorship Management API
+# 🏊🚴🏃 Triathlete Sponsorship Management Web
 
 ## System Overview:
 
 <p align="justify">
-The Triathlete Sponsorship Management API is designed to manage the sponsorship relationships between triathletes and sponsors. Each Triathlete can have multiple Sponsors, and each Sponsor can support multiple Triathletes, forming a <code>Many-to-Many</code> (M:N) relationship.
+The Triathlete Sponsorship Management Web is designed to manage the sponsorship relationships between triathletes and sponsors. Each Triathlete can have multiple Sponsors, and each Sponsor can support multiple Triathletes, forming a <code>Many-to-Many</code> (M:N) relationship.
 </p>
 
 <p align="justify">

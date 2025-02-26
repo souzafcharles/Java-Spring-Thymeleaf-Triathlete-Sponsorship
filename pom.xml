@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.souza.charles</groupId>
-	<artifactId>triathlete-sponsorship-api</artifactId>
+	<artifactId>triathlete-sponsorship-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>triathlete-sponsorship-api</name>
-	<description>The Triathlete Sponsorship Management System is designed to manage the relationships between triathletes and their sponsors.</description>
+	<name>triathlete-sponsorship-web</name>
+	<description>The Triathlete Sponsorship Management Web System is designed to manage the relationships between triathletes and their sponsors.</description>
 	<url/>
 	<licenses>
 		<license/>

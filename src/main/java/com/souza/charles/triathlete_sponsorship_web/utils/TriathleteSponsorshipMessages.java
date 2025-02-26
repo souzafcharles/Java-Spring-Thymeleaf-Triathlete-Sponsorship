@@ -1,4 +1,4 @@
-package com.souza.charles.triathlete_sponsorship_api.utils;
+package com.souza.charles.triathlete_sponsorship_web.utils;
 
 public class TriathleteSponsorshipMessages {
 

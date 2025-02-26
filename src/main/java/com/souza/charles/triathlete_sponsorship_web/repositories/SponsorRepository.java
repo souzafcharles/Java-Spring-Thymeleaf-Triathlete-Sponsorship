@@ -1,6 +1,6 @@
-package com.souza.charles.triathlete_sponsorship_api.repositories;
+package com.souza.charles.triathlete_sponsorship_web.repositories;
 
-import com.souza.charles.triathlete_sponsorship_api.models.Sponsor;
+import com.souza.charles.triathlete_sponsorship_web.models.Sponsor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SponsorRepository extends JpaRepository<Sponsor, Long> {
