@@ -1,6 +1,6 @@
-package com.souza.charles.triathlete_sponsorship_api.models;
+package com.souza.charles.triathlete_sponsorship_web.models;
 
-import com.souza.charles.triathlete_sponsorship_api.dtos.TriathleteRequestDTO;
+import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteRequestDTO;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,10 +1,10 @@
-package com.souza.charles.triathlete_sponsorship_api;
+package com.souza.charles.triathlete_sponsorship_web;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TriathleteRequestDTOSponsorshipApiApplicationTests {
+class TriathleteRequestDTOSponsorshipWebApplicationTests {
 
 	@Test
 	void contextLoads() {

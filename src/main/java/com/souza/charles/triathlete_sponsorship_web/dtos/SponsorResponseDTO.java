@@ -1,7 +1,7 @@
-package com.souza.charles.triathlete_sponsorship_api.dtos;
+package com.souza.charles.triathlete_sponsorship_web.dtos;
 
-import com.souza.charles.triathlete_sponsorship_api.models.Sponsor;
-import com.souza.charles.triathlete_sponsorship_api.models.Triathlete;
+import com.souza.charles.triathlete_sponsorship_web.models.Sponsor;
+import com.souza.charles.triathlete_sponsorship_web.models.Triathlete;
 
 import java.util.List;
 

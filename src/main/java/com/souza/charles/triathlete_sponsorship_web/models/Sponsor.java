@@ -1,4 +1,4 @@
-package com.souza.charles.triathlete_sponsorship_api.models;
+package com.souza.charles.triathlete_sponsorship_web.models;
 
 import jakarta.persistence.*;
 

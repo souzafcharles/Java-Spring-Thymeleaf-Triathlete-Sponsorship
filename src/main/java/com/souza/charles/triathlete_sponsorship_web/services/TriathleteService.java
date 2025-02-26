@@ -1,16 +1,18 @@
-package com.souza.charles.triathlete_sponsorship_api.services;
+package com.souza.charles.triathlete_sponsorship_web.services;
 
-import com.souza.charles.triathlete_sponsorship_api.dtos.TriathleteRequestDTO;
-import com.souza.charles.triathlete_sponsorship_api.dtos.TriathleteResponseDTO;
-import com.souza.charles.triathlete_sponsorship_api.models.Triathlete;
-import com.souza.charles.triathlete_sponsorship_api.repositories.TriathleteRepository;
+import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteRequestDTO;
+import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteResponseDTO;
+import com.souza.charles.triathlete_sponsorship_web.models.Triathlete;
+import com.souza.charles.triathlete_sponsorship_web.repositories.TriathleteRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
+@Validated
 @Service
 public class TriathleteService {
 

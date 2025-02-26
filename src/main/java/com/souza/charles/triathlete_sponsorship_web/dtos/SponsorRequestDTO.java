@@ -1,6 +1,6 @@
-package com.souza.charles.triathlete_sponsorship_api.dtos;
+package com.souza.charles.triathlete_sponsorship_web.dtos;
 
-import com.souza.charles.triathlete_sponsorship_api.utils.TriathleteSponsorshipMessages;
+import com.souza.charles.triathlete_sponsorship_web.utils.TriathleteSponsorshipMessages;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
