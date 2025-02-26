@@ -1,16 +1,53 @@
-# Compiled class file
-*.class
+# Ignore build folders and generated files
+target/
+bin/
+build/
 
-# Log file
+# Allow only the Maven wrapper JAR file to be included
+!.mvn/wrapper/maven-wrapper.jar
+mvnw
+mvnw.cmd
+
+# Ignore IDE-specific files
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
+
+### STS (Spring Tool Suite) ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Ignore sensitive environment files
+.env
+
+# Ignore log files
 *.log
 
-# BlueJ files
-*.ctxt
+# Ignore compiled class files
+*.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Ignore JVM crash logs
+hs_err_pid*
+replay_pid*
 
-# Package Files #
+# Ignore compressed and packaged files
 *.jar
 *.war
 *.nar
@@ -19,6 +56,9 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+# Ignore crash dump files
+mintty.exe.stackdump
+bash.exe.stackdump
+
+# Ignore HELP.md file
+HELP.md
