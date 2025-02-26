@@ -4,10 +4,9 @@ import com.souza.charles.triathlete_sponsorship_api.utils.TriathleteSponsorshipM
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-
 import java.util.List;
 
-public record TriathleteDTO(
+public record TriathleteRequestDTO(
         Long id,
 
         @NotBlank(message = TriathleteSponsorshipMessages.TRIATHLETE_NAME_REQUIRED)
@@ -19,4 +18,3 @@ public record TriathleteDTO(
 
         List<Long> sponsors
 ) {}
-

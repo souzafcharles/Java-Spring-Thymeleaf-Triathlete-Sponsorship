@@ -1,9 +1,10 @@
 package com.souza.charles.triathlete_sponsorship_api.models;
 
+import com.souza.charles.triathlete_sponsorship_api.dtos.TriathleteRequestDTO;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_triathlete")
@@ -14,7 +15,6 @@ public class Triathlete {
     private Long id;
 
     private String name;
-
     private Integer age;
 
     @ManyToMany
@@ -22,6 +22,28 @@ public class Triathlete {
             joinColumns = @JoinColumn(name = "triathlete_id"),
             inverseJoinColumns = @JoinColumn(name = "sponsor_id"))
     private List<Sponsor> sponsors = new ArrayList<>();
+
+    public Triathlete() {}
+
+    public Triathlete(Long id, String name, Integer age, List<Sponsor> sponsors) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.sponsors = sponsors;
+    }
+
+    public Triathlete(TriathleteRequestDTO dto, List<Sponsor> sponsors) {
+        this.id = dto.id();
+        this.name = dto.name();
+        this.age = dto.age();
+        this.sponsors = sponsors;
+    }
+
+    public Triathlete(TriathleteRequestDTO dto) {
+        this.id = dto.id();
+        this.name = dto.name();
+        this.age = dto.age();
+    }
 
     public Long getId() {
         return id;
@@ -51,4 +73,15 @@ public class Triathlete {
         return sponsors;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Triathlete that = (Triathlete) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
