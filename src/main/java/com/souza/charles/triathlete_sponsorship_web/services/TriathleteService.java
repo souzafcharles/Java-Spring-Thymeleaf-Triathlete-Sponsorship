@@ -2,6 +2,7 @@ package com.souza.charles.triathlete_sponsorship_web.services;
 
 import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteRequestDTO;
 import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteResponseDTO;
+import com.souza.charles.triathlete_sponsorship_web.exceptions.TriathleteNotFoundException;
 import com.souza.charles.triathlete_sponsorship_web.models.Triathlete;
 import com.souza.charles.triathlete_sponsorship_web.repositories.TriathleteRepository;
 
@@ -33,7 +34,15 @@ public class TriathleteService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public TriathleteResponseDTO readById(Long id) {
+        Triathlete entity = triathleteRepository.findById(id).orElseThrow(() -> new TriathleteNotFoundException(id));
+        return new TriathleteResponseDTO (entity);
+    }
+
+    @Transactional
+    public void deleteTriathlete(Long id) {
+        Triathlete entity = triathleteRepository.findById(id).orElseThrow(() -> new TriathleteNotFoundException(id));
+        triathleteRepository.delete(entity);
+    }
 }
-
-
-
