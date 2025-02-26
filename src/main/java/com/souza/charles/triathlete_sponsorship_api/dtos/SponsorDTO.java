@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
-public record SponsorDTO(
+public record SponsorRequestDTO(
         Long id,
 
         @NotBlank(message = TriathleteSponsorshipMessages.SPONSOR_TITLE_REQUIRED)
