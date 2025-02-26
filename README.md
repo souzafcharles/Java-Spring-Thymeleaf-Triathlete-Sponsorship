@@ -24,18 +24,18 @@ The user interface is built using <code>Thymeleaf</code> templates, incorporatin
 </p>
 
 ***
+
 ## Project Stack:
 
 | Technology       | Version  | Description                                              |
 |------------------|----------|----------------------------------------------------------|
 | 📐 IntelliJ IDEA | `2024.3` | Integrated Development Environment (IDE)                 |
-| ☕ Java          | `21`     | Backend programming language                             |
+| ☕ Java           | `21`     | Backend programming language                             |
 | 🌱 Spring Boot   | `3.4.3`  | Framework for creating Spring applications               |
 | 🍃 Thymeleaf     | `3.1.3`  | Modern server-side Java template engine                  |
 | 🐦 Maven         | `3.9.9`  | Build automation and dependency management tool          |
 | 🐘 PostgreSQL    | `17`     | Relational database management system                    |
-| 👩‍🚀 Postman       | `11.19`  | API testing and development tool                         |
-| 🎨 Bootstrap	   | `5.1.3`  |	Front-end framework for responsive web design            |
+| 🎨 Bootstrap     | `5.1.3`  | Front-end framework for responsive web design            |
 | 💠 jQuery	       | `3.6.1`  | JavaScript library for simplifying HTML DOM manipulation |
 
 ***
@@ -50,6 +50,6 @@ The user interface is built using <code>Thymeleaf</code> templates, incorporatin
 | ✔️ Validation           | Validation (I/O) | Enables Java Bean Validation employing Hibernate Validator                                                                |
 | 🔄 Spring Boot DevTools | Developer Tools  | Provides fast application restarts, LiveReload, and configurations for an enhanced development experience                 |
 | 🍃 Thymeleaf            | Template Engines | Allows HTML to be correctly displayed in browsers and as static prototypes                                                |
-| 🗝️ dotenv-java          | Configuration    | Loads environment variables from a `.env` file into the application, aiding in secure configuration management            |
+| 🗝️ dotenv-java         | Configuration    | Loads environment variables from a `.env` file into the application, aiding in secure configuration management            |
 
 ***
