@@ -1,4 +1,4 @@
-package com.souza.charles.triathlete_sponsorship_api.environment;
+package com.souza.charles.triathlete_sponsorship_api.environments;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
