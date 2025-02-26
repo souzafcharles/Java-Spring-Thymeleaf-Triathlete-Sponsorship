@@ -12,15 +12,15 @@ The Triathlete Sponsorship Management API is designed to manage the sponsorship 
 </p>
 
 <p align="justify">
-To efficiently manage this relationship, an intermediate table (<code>tb_triathlete_sponsor</code>) is created, ensuring a structured connection between Triathletes and Sponsors.  This <code>Many-to-Many</code> relationship is a core aspect of the system's design. 
+To efficiently manage this relationship, an intermediate table (<code>tb_triathlete_sponsor</code>) is created, ensuring a structured connection between Triathletes and Sponsors. This <code>Many-to-Many</code> relationship is a core aspect of the system's design. 
 </p>
 
 <p align="justify">
-The system aims to provide a user-friendly and efficient platform for managing these interactions, streamlining the sponsorship process for both triathletes and sponsors.  The development of this system leverages the capabilities of the <code>Java Spring</code> framework, incorporating key technologies such as <code>Spring Boot</code>, <code>Spring Data JPA</code>, and <code>PostgreSQL</code>.
+The system aims to provide a user-friendly and efficient platform for managing these interactions, streamlining the sponsorship process for both triathletes and sponsors. The development of this system leverages the capabilities of the <code>Java Spring</code> framework, incorporating key technologies such as <code>Spring Boot</code>, <code>Spring Data JPA</code>, and <code>PostgreSQL</code>.
 </p>
 
 <p align="justify">
-The user interface is built using <code>Thymeleaf</code> templates, incorporating <code>Bootstrap 5.1.3</code> for responsive design and styling, and <code>jQuery 3.6.0</code> for enhanced client-side interactions.
+The user interface is built using <code>Thymeleaf</code> templates, incorporating <code>Bootstrap 5.1.3</code> for responsive design and styling, and <code>jQuery 3.6.1</code> for enhanced client-side interactions.
 </p>
 
 ***
@@ -35,8 +35,8 @@ The user interface is built using <code>Thymeleaf</code> templates, incorporatin
 | 🐦 Maven         | `3.9.9`  | Build automation and dependency management tool          |
 | 🐘 PostgreSQL    | `17`     | Relational database management system                    |
 | 👩‍🚀 Postman       | `11.19`  | API testing and development tool                         |
-| 🎨 Bootstrap	   |`5.1.3`   |	Front-end framework for responsive web design            |
-| 💠 jQuery	       | `3.6.0`  | JavaScript library for simplifying HTML DOM manipulation |
+| 🎨 Bootstrap	   | `5.1.3`  |	Front-end framework for responsive web design            |
+| 💠 jQuery	       | `3.6.1`  | JavaScript library for simplifying HTML DOM manipulation |
 
 ***
 
