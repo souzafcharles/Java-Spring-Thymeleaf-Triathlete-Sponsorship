@@ -12,7 +12,7 @@ The Triathlete Sponsorship Management API is designed to manage the sponsorship 
 </p>
 
 <p align="justify">
-To efficiently manage this relationship, an intermediate table (<code>triathlete_sponsor</code>) is created, ensuring a structured connection between Triathletes and Sponsors.  This <code>Many-to-Many</code> relationship is a core aspect of the system's design. 
+To efficiently manage this relationship, an intermediate table (<code>tb_triathlete_sponsor</code>) is created, ensuring a structured connection between Triathletes and Sponsors.  This <code>Many-to-Many</code> relationship is a core aspect of the system's design. 
 </p>
 
 <p align="justify">
