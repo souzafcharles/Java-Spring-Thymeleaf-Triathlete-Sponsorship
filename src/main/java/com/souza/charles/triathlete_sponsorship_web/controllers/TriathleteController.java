@@ -25,21 +25,21 @@ public class TriathleteController {
     @GetMapping("/")
     public String listTriathletes(Model model) {
         List<TriathleteResponseDTO> triathletes = triathleteService.readAllTriathletes();
-        model.addAttribute("triathletes", triathletes);
-        return "/list-triathletes";
+        model.addAttribute("listTriathletes", triathletes);
+        return "list-triathletes";
     }
 
     @GetMapping("/new")
     public String newTriathlete(Model model) {
         model.addAttribute("newTriathlete", new TriathleteRequestDTO(null, null, null, List.of()));
-        return "/new-triathlete";
+        return "new-triathlete";
     }
 
     @PostMapping("/save")
     public String saveTriathlete(@ModelAttribute("newTriathlete") @Valid TriathleteRequestDTO dto, BindingResult errors,
                                  RedirectAttributes attributes) {
         if(errors.hasErrors()) {
-            return "/new-triathlete";
+            return "new-triathlete";
         }
         triathleteService.createTriathlete(dto);
         attributes.addFlashAttribute("message", TriathleteSponsorshipMessages.TRIATHLETE_SAVED_SUCCESSFULLY);
