@@ -2,7 +2,6 @@ package com.souza.charles.triathlete_sponsorship_web.controllers;
 
 import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteRequestDTO;
 import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteResponseDTO;
-import com.souza.charles.triathlete_sponsorship_web.exceptions.TriathleteNotFoundException;
 import com.souza.charles.triathlete_sponsorship_web.services.TriathleteService;
 import com.souza.charles.triathlete_sponsorship_web.utils.TriathleteSponsorshipMessages;
 import jakarta.validation.Valid;
@@ -48,11 +47,25 @@ public class TriathleteController {
 
     @GetMapping("/delete/{id}")
     public String deleteTriathlete(@PathVariable("id") long id, RedirectAttributes attributes) {
-        try {
-            triathleteService.deleteTriathlete(id);
-        } catch (TriathleteNotFoundException e) {
-            attributes.addFlashAttribute("errorMessage", e.getMessage());
+        triathleteService.deleteTriathlete(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editForm(@PathVariable("id") Long id, Model model) {
+        TriathleteResponseDTO dto = triathleteService.findTriathleteById(id);
+        model.addAttribute("objectTriathlete", dto);
+        return "edit-triathlete";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editTriathlete(@PathVariable("id") Long id,
+                                 @ModelAttribute("objectTriathlete") @Valid TriathleteRequestDTO dto,
+                                 BindingResult errors) {
+        if (errors.hasErrors()) {
+            return "edit-triathlete";
         }
+        triathleteService.editTriathlete(id, dto);
         return "redirect:/";
     }
 

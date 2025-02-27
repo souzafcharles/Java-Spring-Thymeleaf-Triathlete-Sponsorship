@@ -27,7 +27,7 @@ public class TriathleteService {
         return new TriathleteResponseDTO(created);
     }
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     public List<TriathleteResponseDTO> readAllTriathletes() {
         return triathleteRepository.findAll().stream()
                 .map(TriathleteResponseDTO::new)
@@ -35,14 +35,31 @@ public class TriathleteService {
     }
 
     @Transactional(readOnly = true)
-    public TriathleteResponseDTO readById(Long id) {
-        Triathlete entity = triathleteRepository.findById(id).orElseThrow(() -> new TriathleteNotFoundException(id));
-        return new TriathleteResponseDTO (entity);
+    public Triathlete readTriathleteById(Long id) {
+        return triathleteRepository.findById(id)
+                .orElseThrow(() -> new TriathleteNotFoundException(id));
+    }
+
+    @Transactional(readOnly = true)
+    public TriathleteResponseDTO findTriathleteById(Long id) {
+        Triathlete entity = readTriathleteById(id);
+        return new TriathleteResponseDTO(entity);
     }
 
     @Transactional
     public void deleteTriathlete(Long id) {
-        Triathlete entity = triathleteRepository.findById(id).orElseThrow(() -> new TriathleteNotFoundException(id));
+        Triathlete entity = readTriathleteById(id);
         triathleteRepository.delete(entity);
     }
+
+    @Transactional
+    public TriathleteResponseDTO editTriathlete(Long id, TriathleteRequestDTO dto) {
+        Triathlete entity = readTriathleteById(id);
+        entity.setName(dto.name());
+        entity.setAge(dto.age());
+
+        Triathlete updated = triathleteRepository.save(entity);
+        return new TriathleteResponseDTO(updated);
+    }
+
 }
