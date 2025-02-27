@@ -24,6 +24,18 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-sm-5">
+            <form th:action="@{/search}" method="post">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="name" /> <input
+                        class="btn btn-primary" type="submit" value="Search" />
+                    <a th:href="@{/}" class="btn btn-danger" type="submit">Cancel </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -35,7 +47,7 @@
             </thead>
             <tbody>
             <tr th:if="${listTriathletes.empty}">
-                <td colspan="4">No triathletes found.</td>
+                <td colspan="4">No Triathletes found.</td>
             </tr>
             <tr th:each="triathlete : ${listTriathletes}">
                 <td>
