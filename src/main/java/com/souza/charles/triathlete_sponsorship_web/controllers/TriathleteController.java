@@ -28,6 +28,16 @@ public class TriathleteController {
         return "list-triathletes";
     }
 
+    @PostMapping("/search")
+    public String searchTriathletes(Model model, @RequestParam("name") String name) {
+        if (name == null || name.isBlank()) {
+            return "redirect:/";
+        }
+        List<TriathleteResponseDTO> triathletes = triathleteService.readAllTriathletesByName(name);
+        model.addAttribute("listTriathletes", triathletes);
+        return "list-triathletes";
+    }
+
     @GetMapping("/new")
     public String newTriathlete(Model model) {
         model.addAttribute("newTriathlete", new TriathleteRequestDTO(null, null, null, List.of()));

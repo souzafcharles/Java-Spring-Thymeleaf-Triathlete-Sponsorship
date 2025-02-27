@@ -35,6 +35,13 @@ public class TriathleteService {
     }
 
     @Transactional(readOnly = true)
+    public List<TriathleteResponseDTO> readAllTriathletesByName(String name) {
+        return triathleteRepository.findByNameContainingIgnoreCase(name).stream()
+                .map(TriathleteResponseDTO::new)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
     public Triathlete readTriathleteById(Long id) {
         return triathleteRepository.findById(id)
                 .orElseThrow(() -> new TriathleteNotFoundException(id));
