@@ -1,7 +1,9 @@
 package com.souza.charles.triathlete_sponsorship_web.controllers;
 
+import com.souza.charles.triathlete_sponsorship_web.dtos.SponsorResponseDTO;
 import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteRequestDTO;
 import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteResponseDTO;
+import com.souza.charles.triathlete_sponsorship_web.services.SponsorService;
 import com.souza.charles.triathlete_sponsorship_web.services.TriathleteService;
 import com.souza.charles.triathlete_sponsorship_web.utils.TriathleteSponsorshipMessages;
 import jakarta.validation.Valid;
@@ -20,6 +22,9 @@ public class TriathleteController {
 
     @Autowired
     private TriathleteService triathleteService;
+
+    @Autowired
+    private SponsorService sponsorService;
 
     @GetMapping("/")
     public String listTriathletes(Model model) {
@@ -41,13 +46,17 @@ public class TriathleteController {
     @GetMapping("/new")
     public String newTriathlete(Model model) {
         model.addAttribute("newTriathlete", new TriathleteRequestDTO(null, null, null, List.of()));
+        List<SponsorResponseDTO> sponsors = sponsorService.readAllSponsors();
+        model.addAttribute("listSponsors", sponsors);
         return "new-triathlete";
     }
 
     @PostMapping("/save")
-    public String saveTriathlete(@ModelAttribute("newTriathlete") @Valid TriathleteRequestDTO dto, BindingResult errors,
+    public String saveTriathlete(Model model, @ModelAttribute("newTriathlete") @Valid TriathleteRequestDTO dto, BindingResult errors,
                                  RedirectAttributes attributes) {
         if(errors.hasErrors()) {
+            List<SponsorResponseDTO> sponsors = sponsorService.readAllSponsors();
+            model.addAttribute("listSponsors", sponsors);
             return "new-triathlete";
         }
         triathleteService.createTriathlete(dto);

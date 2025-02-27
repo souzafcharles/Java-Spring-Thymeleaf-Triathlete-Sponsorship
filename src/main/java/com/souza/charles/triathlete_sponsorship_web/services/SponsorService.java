@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+
 @Validated
 @Service
 public class SponsorService {
@@ -21,6 +23,13 @@ public class SponsorService {
         Sponsor entity = new Sponsor(dto);
         Sponsor created = sponsorRepository.save(entity);
         return new SponsorResponseDTO(created);
+    }
+
+    @Transactional(readOnly = true)
+    public List<SponsorResponseDTO> readAllSponsors() {
+        return sponsorRepository.findAll().stream()
+                .map(SponsorResponseDTO::new)
+                .toList();
     }
 
 }
