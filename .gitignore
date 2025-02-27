@@ -34,7 +34,7 @@ mvnw.cmd
 /nbdist/
 /.nb-gradle/
 
-# Ignore sensitive environment files
+# Ignore sensitive environments files
 .env
 
 # Ignore log files
