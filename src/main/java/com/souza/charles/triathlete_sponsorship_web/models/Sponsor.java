@@ -1,5 +1,6 @@
 package com.souza.charles.triathlete_sponsorship_web.models;
 
+import com.souza.charles.triathlete_sponsorship_web.dtos.SponsorRequestDTO;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -17,6 +18,26 @@ public class Sponsor {
 
     @ManyToMany(mappedBy = "sponsors")
     private List<Triathlete> triathletes = new ArrayList<>();
+
+    public Sponsor() {
+    }
+
+    public Sponsor(Long id, String title, List<Triathlete> triathletes) {
+        this.id = id;
+        this.title = title;
+        this.triathletes = triathletes;
+    }
+
+    public Sponsor(SponsorRequestDTO dto, List<Triathlete> triathletes) {
+        this.id = dto.id();
+        this.title = dto.title();
+        this.triathletes = triathletes;
+    }
+
+    public Sponsor(SponsorRequestDTO dto) {
+        this.id = dto.id();
+        this.title = dto.title();
+    }
 
     public Long getId() {
         return id;
