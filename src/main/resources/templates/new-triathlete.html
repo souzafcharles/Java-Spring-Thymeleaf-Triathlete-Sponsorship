@@ -1,17 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/bootstrap-5.1.3-dist/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script th:src="@{/jquery-3.6.1-dist/jquery-3.6.1.min.js}"></script>
     <script th:src="@{/bootstrap-5.1.3-dist/js/bootstrap.min.js}"></script>
     <link rel="icon" th:href="@{/images/triathlete-icon.svg}" type="image/svg+xml">
     <title>New Triathlete</title>
     <style>
         .message {
-          color: red;
+            color: red;
+        }
+
+        .sponsor-row {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .sponsor-label {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #343a40;
+        }
+
+        .sponsor-checkbox-container {
+            padding-left: 20px;
+        }
+
+        .sponsor-checkbox-container input[type="checkbox"] {
+            margin-right: 8px;
         }
     </style>
 </head>
@@ -25,7 +47,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <span th:text="${message}"></span>
             </div>
-            <form th:action="@{/save}" th:object="${newTriathlete}" method="post" aria-label="Triathlete Registration Form">
+            <form th:action="@{/save}" th:object="${newTriathlete}" method="post"
+                  aria-label="Triathlete Registration Form">
                 <div class="row mb-3">
                     <label class="col-sm-1 col-form-label">Name:</label>
                     <div class="col-sm-5">
@@ -34,8 +57,8 @@
                         </label>
                     </div>
                     <div class="col-sm-5">
-							<span class="message" th:if="${#fields.hasErrors('name')}"
-                                  th:errors="*{name}"></span>
+                        <span class="message" th:if="${#fields.hasErrors('name')}"
+                              th:errors="*{name}"></span>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -46,12 +69,22 @@
                         </label>
                     </div>
                     <div class="col-sm-5">
-							<span class="message" th:if="${#fields.hasErrors('age')}"
-                                  th:errors="*{age}"></span>
+                        <span class="message" th:if="${#fields.hasErrors('age')}"
+                              th:errors="*{age}"></span>
                     </div>
-
                 </div>
-                <input class="btn btn-primary" type="submit" value="Save" aria-label="Save Triathlete Information" />
+                <div class="row mb-3 sponsor-row">
+                    <label class="col-sm-2 col-form-label sponsor-label">Sponsors:</label>
+                    <div class="col-sm-10 sponsor-checkbox-container">
+                        <th:block th:each="sponsor : ${listSponsors}">
+                            <input type="checkbox" name="sponsors"
+                                   th:text="${sponsor.title}"
+                                   th:value="${sponsor.id}"
+                                   th:field="*{sponsors}"/><br/>
+                        </th:block>
+                    </div>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Save" aria-label="Save Triathlete Information"/>
             </form>
         </div>
     </div>
