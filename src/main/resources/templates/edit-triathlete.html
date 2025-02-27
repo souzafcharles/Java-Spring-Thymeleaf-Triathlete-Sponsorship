@@ -22,6 +22,7 @@
     <div class="row" style="padding-bottom: 30px;">
         <div class="col">
             <h2>Edit Triathlete</h2>
+            <a th:href="@{/}" class="btn btn-secondary" aria-label="Back to home page">Back</a>
             <div class="alert alert-success alert-dismissible fade show"
                  th:if="${message}">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -52,6 +53,18 @@
                     <div class="col-sm-5">
 							<span class="message" th:if="${#fields.hasErrors('age')}"
                                   th:errors="*{age}"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3 sponsor-row">
+                    <label class="col-sm-2 col-form-label sponsor-label">Sponsors:</label>
+                    <div class="col-sm-10 sponsor-checkbox-container">
+                        <th:block th:each="sponsor : ${listSponsors}">
+                            <input type="checkbox" name="sponsors"
+                                   th:text="${sponsor.title}"
+                                   th:value="${sponsor.id}"
+                                   th:field="*{sponsors}"/><br/>
+                        </th:block>
                     </div>
                 </div>
 

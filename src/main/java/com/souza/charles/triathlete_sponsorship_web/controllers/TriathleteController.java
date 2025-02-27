@@ -74,14 +74,19 @@ public class TriathleteController {
     public String editForm(@PathVariable("id") Long id, Model model) {
         TriathleteResponseDTO dto = triathleteService.findTriathleteById(id);
         model.addAttribute("objectTriathlete", dto);
+        List<SponsorResponseDTO> sponsors = sponsorService.readAllSponsors();
+        model.addAttribute("listSponsors", sponsors);
         return "edit-triathlete";
     }
 
     @PostMapping("/edit/{id}")
-    public String editTriathlete(@PathVariable("id") Long id,
+    public String editTriathlete(Model model, @PathVariable("id") Long id,
                                  @ModelAttribute("objectTriathlete") @Valid TriathleteRequestDTO dto,
                                  BindingResult errors) {
         if (errors.hasErrors()) {
+            dto = new TriathleteRequestDTO(id, dto.name(), dto.age(), dto.sponsors());
+            List<SponsorResponseDTO> sponsors = sponsorService.readAllSponsors();
+            model.addAttribute("listSponsors", sponsors);
             return "edit-triathlete";
         }
         triathleteService.editTriathlete(id, dto);
