@@ -2,6 +2,8 @@ package com.souza.charles.triathlete_sponsorship_web.utils;
 
 public class TriathleteSponsorshipMessages {
 
+
+
     private TriathleteSponsorshipMessages() {
         throw new IllegalStateException("Utility class");
     }
@@ -15,4 +17,5 @@ public class TriathleteSponsorshipMessages {
     // Sponsor Messages
     public static final String SPONSOR_TITLE_REQUIRED = "Title is required";
     public static final String SPONSOR_TITLE_MIN_LENGTH = "Title must have at least 2 characters";
+    public static final Object SPONSOR_SAVED_SUCCESSFULLY = "Sponsor saved successfully!";
 }
