@@ -2,8 +2,6 @@ package com.souza.charles.triathlete_sponsorship_web.utils;
 
 public class TriathleteSponsorshipMessages {
 
-
-
     private TriathleteSponsorshipMessages() {
         throw new IllegalStateException("Utility class");
     }
