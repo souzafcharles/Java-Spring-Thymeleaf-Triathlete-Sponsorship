@@ -1,72 +1,50 @@
 package com.souza.charles.triathlete_sponsorship_web.services;
 
-import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteRequestDTO;
-import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteResponseDTO;
 import com.souza.charles.triathlete_sponsorship_web.exceptions.TriathleteNotFoundException;
 import com.souza.charles.triathlete_sponsorship_web.models.Triathlete;
 import com.souza.charles.triathlete_sponsorship_web.repositories.TriathleteRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
+import java.util.Optional;
 
-@Validated
 @Service
 public class TriathleteService {
 
     @Autowired
     private TriathleteRepository triathleteRepository;
 
-    @Transactional
-    public TriathleteResponseDTO createTriathlete(TriathleteRequestDTO dto) {
-        Triathlete entity = new Triathlete(dto);
-        Triathlete created = triathleteRepository.save(entity);
-        return new TriathleteResponseDTO(created);
+    public Triathlete createTriathlete(Triathlete triathlete) {
+        return triathleteRepository.save(triathlete);
     }
 
-    @Transactional(readOnly = true)
-    public List<TriathleteResponseDTO> readAllTriathletes() {
-        return triathleteRepository.findAll().stream()
-                .map(TriathleteResponseDTO::new)
-                .toList();
+    public List<Triathlete> readAllTriathletes() {
+        return triathleteRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
-    public List<TriathleteResponseDTO> readAllTriathletesByName(String name) {
-        return triathleteRepository.findByNameContainingIgnoreCase(name).stream()
-                .map(TriathleteResponseDTO::new)
-                .toList();
+    public Triathlete readTriathleteById(Long id) throws TriathleteNotFoundException {
+        Optional<Triathlete> optional = triathleteRepository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            throw new TriathleteNotFoundException(id);
+        }
     }
 
-    @Transactional(readOnly = true)
-    public Triathlete readTriathleteById(Long id) {
-        return triathleteRepository.findById(id)
-                .orElseThrow(() -> new TriathleteNotFoundException(id));
+    public void deleteTriathlete(Long id) throws TriathleteNotFoundException {
+        Triathlete triathlete = readTriathleteById(id);
+        triathlete.getSponsors().clear();
+        triathleteRepository.save(triathlete);
+        triathleteRepository.delete(triathlete);
     }
 
-    @Transactional(readOnly = true)
-    public TriathleteResponseDTO findTriathleteById(Long id) {
-        Triathlete entity = readTriathleteById(id);
-        return new TriathleteResponseDTO(entity);
+
+    public Triathlete editTriathlete(Triathlete triathlete) {
+        return triathleteRepository.save(triathlete);
     }
 
-    @Transactional
-    public void deleteTriathlete(Long id) {
-        Triathlete entity = readTriathleteById(id);
-        triathleteRepository.delete(entity);
+    public List<Triathlete> readAllTriathletesByName(String name) {
+        return triathleteRepository.findByNameContainingIgnoreCase(name);
     }
-
-    @Transactional
-    public TriathleteResponseDTO editTriathlete(Long id, TriathleteRequestDTO dto) {
-        Triathlete entity = readTriathleteById(id);
-        entity.setName(dto.name());
-        entity.setAge(dto.age());
-
-        Triathlete updated = triathleteRepository.save(entity);
-        return new TriathleteResponseDTO(updated);
-    }
-
 }

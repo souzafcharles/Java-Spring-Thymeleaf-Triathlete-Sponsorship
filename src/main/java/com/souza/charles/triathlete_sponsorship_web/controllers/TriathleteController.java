@@ -1,13 +1,14 @@
 package com.souza.charles.triathlete_sponsorship_web.controllers;
 
-import com.souza.charles.triathlete_sponsorship_web.dtos.SponsorResponseDTO;
-import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteRequestDTO;
-import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteResponseDTO;
+import com.souza.charles.triathlete_sponsorship_web.exceptions.TriathleteNotFoundException;
+import com.souza.charles.triathlete_sponsorship_web.models.Sponsor;
+import com.souza.charles.triathlete_sponsorship_web.models.Triathlete;
 import com.souza.charles.triathlete_sponsorship_web.services.SponsorService;
 import com.souza.charles.triathlete_sponsorship_web.services.TriathleteService;
 import com.souza.charles.triathlete_sponsorship_web.utils.TriathleteSponsorshipMessages;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,69 +29,99 @@ public class TriathleteController {
 
     @GetMapping("/")
     public String listTriathletes(Model model) {
-        List<TriathleteResponseDTO> triathletes = triathleteService.readAllTriathletes();
+        List<Triathlete> triathletes = triathleteService.readAllTriathletes();
         model.addAttribute("listTriathletes", triathletes);
-        return "list-triathletes";
+        return "/list-triathletes";
     }
 
     @PostMapping("/search")
-    public String searchTriathletes(Model model, @RequestParam("name") String name) {
-        if (name == null || name.isBlank()) {
+    public String searchTriathletes(Model model, @Param("name") String name) {
+        if (name == null) {
             return "redirect:/";
         }
-        List<TriathleteResponseDTO> triathletes = triathleteService.readAllTriathletesByName(name);
+        List<Triathlete> triathletes = triathleteService.readAllTriathletesByName(name);
         model.addAttribute("listTriathletes", triathletes);
-        return "list-triathletes";
+        return "/list-triathletes";
     }
 
     @GetMapping("/new")
     public String newTriathlete(Model model) {
-        model.addAttribute("newTriathlete", new TriathleteRequestDTO(null, null, null, List.of()));
-        List<SponsorResponseDTO> sponsors = sponsorService.readAllSponsors();
+        Triathlete triathlete = new Triathlete();
+        model.addAttribute("newTriathlete", triathlete);
+
+        List<Sponsor> sponsors = sponsorService.readAllSponsors();
         model.addAttribute("listSponsors", sponsors);
-        return "new-triathlete";
+
+        return "/new-triathlete";
     }
 
     @PostMapping("/save")
-    public String saveTriathlete(Model model, @ModelAttribute("newTriathlete") @Valid TriathleteRequestDTO dto, BindingResult errors,
+    public String saveTriathlete(Model model, @ModelAttribute("newTriathlete") @Valid Triathlete triathlete,
+                                 BindingResult errors,
                                  RedirectAttributes attributes) {
-        if(errors.hasErrors()) {
-            List<SponsorResponseDTO> sponsors = sponsorService.readAllSponsors();
+        if (errors.hasErrors()) {
+            List<Sponsor> sponsors = sponsorService.readAllSponsors();
             model.addAttribute("listSponsors", sponsors);
-            return "new-triathlete";
+            return "/new-triathlete";
         }
-        triathleteService.createTriathlete(dto);
+        triathleteService.createTriathlete(triathlete);
         attributes.addFlashAttribute("message", TriathleteSponsorshipMessages.TRIATHLETE_SAVED_SUCCESSFULLY);
         return "redirect:/new";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteTriathlete(@PathVariable("id") long id, RedirectAttributes attributes) {
-        triathleteService.deleteTriathlete(id);
+        try {
+            triathleteService.deleteTriathlete(id);
+        } catch (TriathleteNotFoundException e) {
+            attributes.addFlashAttribute("messageError", e.getMessage());
+        }
         return "redirect:/";
     }
 
+
     @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable("id") Long id, Model model) {
-        TriathleteResponseDTO dto = triathleteService.findTriathleteById(id);
-        model.addAttribute("objectTriathlete", dto);
-        List<SponsorResponseDTO> sponsors = sponsorService.readAllSponsors();
-        model.addAttribute("listSponsors", sponsors);
-        return "edit-triathlete";
+    public String editForm(Model model, @PathVariable("id") long id, RedirectAttributes attributes) {
+        try {
+            Triathlete triathlete = triathleteService.readTriathleteById(id);
+            model.addAttribute("objectTriathlete", triathlete);
+
+            List<Sponsor> sponsors = sponsorService.readAllSponsors();
+            model.addAttribute("listSponsors", sponsors);
+
+            return "/edit-triathlete";
+        } catch (TriathleteNotFoundException e) {
+            attributes.addFlashAttribute("messageError", e.getMessage());
+        }
+        return "redirect:/";
     }
 
     @PostMapping("/edit/{id}")
-    public String editTriathlete(Model model, @PathVariable("id") Long id,
-                                 @ModelAttribute("objectTriathlete") @Valid TriathleteRequestDTO dto,
+    public String editTriathlete(Model model, @PathVariable("id") long id,
+                                 @ModelAttribute("objectTriathlete") @Valid Triathlete triathlete,
                                  BindingResult errors) {
         if (errors.hasErrors()) {
-            dto = new TriathleteRequestDTO(id, dto.name(), dto.age(), dto.sponsors());
-            List<SponsorResponseDTO> sponsors = sponsorService.readAllSponsors();
+            triathlete.setId(id);
+
+            List<Sponsor> sponsors = sponsorService.readAllSponsors();
             model.addAttribute("listSponsors", sponsors);
-            return "edit-triathlete";
+
+            return "/edit-triathlete";
         }
-        triathleteService.editTriathlete(id, dto);
+        triathleteService.editTriathlete(triathlete);
         return "redirect:/";
     }
 
+    @GetMapping("/view/{id}")
+    public String viewForm(Model model, @PathVariable("id") long id, RedirectAttributes attributes) {
+        try {
+            Triathlete triathlete = triathleteService.readTriathleteById(id);
+            model.addAttribute("objectTriathlete", triathlete);
+
+            return "/view-triathlete";
+        } catch (TriathleteNotFoundException e) {
+            attributes.addFlashAttribute("messageError", e.getMessage());
+        }
+        return "redirect:/";
+    }
 }

@@ -1,11 +1,11 @@
 package com.souza.charles.triathlete_sponsorship_web.models;
 
-import com.souza.charles.triathlete_sponsorship_web.dtos.SponsorRequestDTO;
+import com.souza.charles.triathlete_sponsorship_web.utils.TriathleteSponsorshipMessages;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "tb_sponsor")
@@ -14,30 +14,13 @@ public class Sponsor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = TriathleteSponsorshipMessages.SPONSOR_TITLE_REQUIRED)
+    @Size(min = 2, message = TriathleteSponsorshipMessages.SPONSOR_TITLE_MIN_LENGTH)
     private String title;
 
     @ManyToMany(mappedBy = "sponsors")
-    private List<Triathlete> triathletes = new ArrayList<>();
-
-    public Sponsor() {
-    }
-
-    public Sponsor(Long id, String title, List<Triathlete> triathletes) {
-        this.id = id;
-        this.title = title;
-        this.triathletes = triathletes;
-    }
-
-    public Sponsor(SponsorRequestDTO dto, List<Triathlete> triathletes) {
-        this.id = dto.id();
-        this.title = dto.title();
-        this.triathletes = triathletes;
-    }
-
-    public Sponsor(SponsorRequestDTO dto) {
-        this.id = dto.id();
-        this.title = dto.title();
-    }
+    private List<Triathlete> triathletes;
 
     public Long getId() {
         return id;
@@ -59,15 +42,7 @@ public class Sponsor {
         return triathletes;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Sponsor sponsor = (Sponsor) o;
-        return Objects.equals(id, sponsor.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
+    public void setTriathletes(List<Triathlete> triathletes) {
+        this.triathletes = triathletes;
     }
 }

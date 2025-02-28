@@ -4,71 +4,121 @@
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/bootstrap-5.1.3-dist/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
           integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <script th:src="@{/jquery-3.6.1-dist/jquery-3.6.1.min.js}"></script>
+    <script th:src="@{/jquery-3.6.0-dist/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/bootstrap-5.1.3-dist/js/bootstrap.min.js}"></script>
     <link rel="icon" th:href="@{/images/triathlete-icon.svg}" type="image/svg+xml">
     <title>Triathletes</title>
+
+    <style>
+        .message {
+          color: red;
+        }
+
+        .table {
+          margin-top: 20px;
+          background-color: #f8f9fa;
+          border-radius: 10px;
+          padding: 15px;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .table th {
+          background-color: #007bff;
+          color: white;
+          font-weight: bold;
+          text-align: center;
+        }
+        .table td {
+          text-align: center;
+          font-size: 1.1rem;
+          color: #495057;
+        }
+
+        .table td.name-column {
+          text-align: left;
+        }
+        /* Ícones de ações */
+        .action-icons a {
+          font-size: 1.2rem;
+          color: #495057;
+          margin-right: 10px;
+          text-decoration: none;
+        }
+        .action-icons a:hover {
+          color: #007bff;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
-        <span th:text="${errorMessage}"></span>
-    </div>
 
     <div class="row" style="padding-bottom: 30px;">
         <div class="col">
-            <a th:href="@{/new}" class="btn btn-primary" aria-label="Add New Triathlete">New Triathlete</a>
-            <a th:href="@{/sponsor/new}" class="btn btn-primary" aria-label="Add New Sponsor">New Sponsor</a>
+            <a th:href="@{/new}" class="btn btn-primary">New Triathlete</a>
+            <a th:href="@{/sponsor/new}" class="btn btn-primary">New Sponsor</a>
         </div>
     </div>
+
     <div class="row">
         <div class="col-sm-5">
             <form th:action="@{/search}" method="post">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="name" /> <input
-                        class="btn btn-primary" type="submit" value="Search" />
-                    <a th:href="@{/}" class="btn btn-danger" type="submit">Cancel </a>
+                    <input type="text" class="form-control" name="name"/>
+                    <input class="btn btn-primary" type="submit" value="Search"/>
+                    <a th:href="@{/}" class="btn btn-danger">Cancel</a>
                 </div>
             </form>
         </div>
     </div>
 
     <div class="row">
+        <div class="alert alert-danger alert-dismissible fade show" th:if="${messageError}">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <span th:text="${messageError}"></span>
+        </div>
+    </div>
+
+
+    <div class="row table">
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
                 <th>Age</th>
-                <th>Actions</th>
+                <th>Delete</th>
+                <th>Edit</th>
+                <th>View</th>
             </tr>
             </thead>
             <tbody>
             <tr th:if="${listTriathletes.empty}">
-                <td colspan="4">No Triathletes found.</td>
+                <td colspan="6">No Triathletes found.</td>
             </tr>
             <tr th:each="triathlete : ${listTriathletes}">
-                <td>
-                    <span th:text="${triathlete.id}"></span>
-                </td>
-                <td>
-                    <span th:text="${triathlete.name}"></span>
-                </td>
-                <td>
-                    <span th:text="${triathlete.age}"></span>
-                </td>
+                <td><span th:text="${triathlete.id}"></span></td>
+
+                <td class="name-column"><span th:text="${triathlete.name}"></span></td>
+                <td><span th:text="${triathlete.age}"></span></td>
+
                 <td>
                     <a class="fa-regular fa-trash-can icon-dark btn-delete"
                        th:href="@{/delete/{id}(id=${triathlete.id})}"
                        th:data-confirm-delete="|Would you like to delete ${triathlete.name}?|"
-                       th:onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
-                    </a>
-                    &nbsp;
+                       th:onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"></a>
+                </td>
+
+                <td>
                     <a class="fa-regular fa-pen-to-square icon-dark"
                        th:href="@{/edit/{id}(id=${triathlete.id})}"></a>
+                </td>
+
+                <td>
+                    <a class="fa fa-eye"
+                       th:href="@{/view/{id}(id=${triathlete.id})}"></a>
                 </td>
             </tr>
             </tbody>

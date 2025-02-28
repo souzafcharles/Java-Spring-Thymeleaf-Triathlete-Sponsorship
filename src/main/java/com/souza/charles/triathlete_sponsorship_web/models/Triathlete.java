@@ -1,10 +1,12 @@
 package com.souza.charles.triathlete_sponsorship_web.models;
 
-import com.souza.charles.triathlete_sponsorship_web.dtos.TriathleteRequestDTO;
+import com.souza.charles.triathlete_sponsorship_web.utils.TriathleteSponsorshipMessages;
 import jakarta.persistence.*;
-import java.util.ArrayList;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "tb_triathlete")
@@ -14,36 +16,18 @@ public class Triathlete {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = TriathleteSponsorshipMessages.TRIATHLETE_NAME_REQUIRED)
+    @Size(min = 2, message = TriathleteSponsorshipMessages.TRIATHLETE_NAME_MIN_LENGTH)
     private String name;
+
+    @Min(value = 18, message = TriathleteSponsorshipMessages.TRIATHLETE_AGE_MIN)
     private Integer age;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "tb_triathlete_sponsor",
             joinColumns = @JoinColumn(name = "triathlete_id"),
             inverseJoinColumns = @JoinColumn(name = "sponsor_id"))
-    private List<Sponsor> sponsors = new ArrayList<>();
-
-    public Triathlete() {}
-
-    public Triathlete(Long id, String name, Integer age, List<Sponsor> sponsors) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.sponsors = sponsors;
-    }
-
-    public Triathlete(TriathleteRequestDTO dto, List<Sponsor> sponsors) {
-        this.id = dto.id();
-        this.name = dto.name();
-        this.age = dto.age();
-        this.sponsors = sponsors;
-    }
-
-    public Triathlete(TriathleteRequestDTO dto) {
-        this.id = dto.id();
-        this.name = dto.name();
-        this.age = dto.age();
-    }
+    private List<Sponsor> sponsors;
 
     public Long getId() {
         return id;
@@ -73,15 +57,7 @@ public class Triathlete {
         return sponsors;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Triathlete that = (Triathlete) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
+    public void setSponsors(List<Sponsor> sponsors) {
+        this.sponsors = sponsors;
     }
 }

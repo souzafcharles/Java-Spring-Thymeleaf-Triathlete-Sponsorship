@@ -5,3 +5,4 @@ public class TriathleteNotFoundException extends RuntimeException {
         super("Triathlete with id: " + id + " does not exist");
     }
 }
+
