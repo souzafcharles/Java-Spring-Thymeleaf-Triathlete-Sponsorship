@@ -1,6 +1,6 @@
 package com.souza.charles.triathlete_sponsorship_web.controllers;
 
-import com.souza.charles.triathlete_sponsorship_web.exceptions.SponsorAlreadyExistsException; // Importe a exceção correta
+import com.souza.charles.triathlete_sponsorship_web.exceptions.SponsorAlreadyExistsException;
 import com.souza.charles.triathlete_sponsorship_web.models.Sponsor;
 import com.souza.charles.triathlete_sponsorship_web.services.SponsorService;
 import com.souza.charles.triathlete_sponsorship_web.utils.TriathleteSponsorshipMessages;

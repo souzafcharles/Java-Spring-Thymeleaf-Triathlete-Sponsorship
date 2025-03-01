@@ -39,7 +39,6 @@ public class TriathleteService {
         triathleteRepository.delete(triathlete);
     }
 
-
     public Triathlete editTriathlete(Triathlete triathlete) {
         return triathleteRepository.save(triathlete);
     }

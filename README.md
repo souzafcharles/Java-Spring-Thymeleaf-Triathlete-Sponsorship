@@ -6,8 +6,7 @@
 # 🏊🚴🏃 Triathlete Sponsorship Management Web
 
 ***
-▶️ Project developed based on tutorials by **Gilberto
-** - [4CatsDev](https://www.youtube.com/playlist?list=PLj8jbyWxdQ-n-WuVOeqqVTXZEhml3H_bH).
+▶️ Project developed based on tutorials by **Gilberto** - [4CatsDev](https://www.youtube.com/playlist?list=PLj8jbyWxdQ-n-WuVOeqqVTXZEhml3H_bH).
 ***
 
 ## System Overview:
